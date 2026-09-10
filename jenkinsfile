@@ -18,12 +18,12 @@ bat 'java Factorial'
 }
 stage('Package JAR') {
             steps {
-                bat 'jar cfm factorial.jar manifest.txt Factorial.class'
+                bat 'jar cfm factorial.jar manifest.txt'
             }
         }
 stage('Archive JAR') {
             steps {
-archiveArtifacts artifacts: 'factorial.jar'
+archiveArtifacts artifacts:
             }
         }
 
