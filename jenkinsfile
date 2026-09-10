@@ -1,0 +1,40 @@
+pipeline{
+agent any
+stages{
+stage('compile'){
+steps{
+bat 'javac Factorial.java TestFactorial.java'
+}
+}
+stage('test'){
+steps{
+bat 'java TestFactorial'
+}
+}
+stage('run'){
+steps{
+bat 'java Factorial'
+}
+}
+stage('Package JAR') {
+            steps {
+                bat 'jar cfm factorial.jar manifest.txt Factorial.class'
+            }
+        }
+stage('Archive JAR') {
+            steps {
+archiveArtifacts artifacts: 'factorial.jar'
+            }
+        }
+
+    }
+post{
+success{
+echo 'compilation,testing,build and creation of archivejar executed successfully'
+}
+failure{
+echo 'test or build failed'
+}
+}
+
+
